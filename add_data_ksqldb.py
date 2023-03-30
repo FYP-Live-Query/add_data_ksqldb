@@ -4,10 +4,12 @@ class MyClass:
     def __init__(self, ksql_url):
         self.api_client = KSQLAPI(ksql_url)
 
-    def insert_into_stream(self, stream_name, rows):
+    def insert(self, stream_name, rows):
         
         for row in rows:
-        # Construct the SQL query
+             # Add the current time as the eventTimestamp attribute
+            row["eventTimestamp"] = f"'{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}'"
+            # Construct the SQL query
             values = f"({', '.join(str(value) for value in row.values())})"
             query = f"INSERT INTO {stream_name} ({', '.join(rows[0].keys())}) VALUES {values};"
             print(query)
@@ -31,7 +33,7 @@ rows = [
 
 
 my_object = MyClass(ksql_url='http://10.8.100.246:8088')
-response = my_object.insert_into_stream(stream_name='network', rows=rows)
+response = my_object.insert(stream_name='network', rows=rows)
 
 
 
