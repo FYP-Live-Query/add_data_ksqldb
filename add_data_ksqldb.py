@@ -9,7 +9,7 @@ class MyClass:
         
         for row in rows:
              # Add the current time as the eventTimestamp attribute
-            row["eventTimestamp"] = f"'{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}'"
+            row["eventTimestamp"] = f"'{datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}'"
             # Construct the SQL query
             values = f"({', '.join(str(value) for value in row.values())})"
             query = f"INSERT INTO {stream_name} ({', '.join(rows[0].keys())}) VALUES {values};"
