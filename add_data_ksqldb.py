@@ -1,4 +1,5 @@
 from ksql import KSQLAPI
+from datetime import datetime
 
 class MyClass:
     def __init__(self, ksql_url):
