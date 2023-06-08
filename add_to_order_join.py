@@ -10,7 +10,7 @@ class MyClass:
     def insert(self, stream_name):
         unique_id = 4000000
         while True: 
-            values = [unique_id, "\'Baby Food1\'", "\'H\'", 10, 1500, 1000, 500, "\'Australia and Oceania\'", "\'Tuvalu\'" ]
+            values = [unique_id, "\'Baby Food\'", "\'H\'", 10, 1500, 1000, 500, "\'Australia and Oceania\'", "\'Tuvalu\'" ]
             # row["eventtimestamp"] = f"'{datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}'"
             # Construct the SQL query
             values = f"({', '.join(str(value) for value in values)})"
