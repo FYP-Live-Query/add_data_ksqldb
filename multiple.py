@@ -2,7 +2,6 @@ from ksql import KSQLAPI
 from datetime import datetime
 import csv
 from random import randrange
-import time
 class MyClass:
     def __init__(self, ksql_url):
         self.api_client = KSQLAPI(ksql_url)
@@ -27,21 +26,20 @@ class MyClass:
     #     except Exception as e:
     #         pass
     #     return None
-        unique_id = 4000000
-        with open('log20170630.csv', 'r') as file:
+        unique_id = 8000000
+        with open('/home/nuvidu/fyp/ksqlDB/add_data_ksqldb/log20170630.csv', 'r') as file:
             reader = csv.reader(file)
             next(reader)
             
             for row in reader:
                 values = [unique_id, "'" + str(row[0]) + "'", "'" + row[1] + "'", "'" + row[2] + "'",  "'" +browsers[randrange(4)] + "'" , "'" + datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + "'"]
+                print(values)
                 # row["eventtimestamp"] = f"'{datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]}'"
                 # Construct the SQL query
                 values = f"({', '.join(str(value) for value in values)})"
                 query = f"INSERT INTO {stream_name} (id, ip, date, time, browser, eventTimestamp) VALUES {values};"
                 unique_id-=1
                 print(query)
-                time.sleep(1)
-                
                 # Execute the SQL query
                 try:
                     c = self.api_client.ksql(query)
@@ -139,8 +137,9 @@ rows = [
 # ]
 
 
-my_object = MyClass(ksql_url='http://172.174.71.151:8088')
+my_object = MyClass(ksql_url='http://20.125.141.28:8088')
 response = my_object.insert(stream_name='network', rows=rows)
+
 
 
 
